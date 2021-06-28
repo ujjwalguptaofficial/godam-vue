@@ -1,1 +1,4 @@
 *.tgz
+test
+node_modules
+src

@@ -1,55 +1,44 @@
 <template>
   <div id="app">
+    {{ name }}
     <img alt="Vue logo" src="./assets/logo.png" />
-    <StudentGrid
-      :students="students"
-      @add-item="addStudent"
-      @remove-item="refreshStudent"
-      @update-item="refreshStudent"
-    />
+    <div v-for="student in students" :key="student.id">
+      {{ student.name }}
+    </div>
+    <StudentGrid :students="students" @add="addStudent" />
   </div>
 </template>
 
 <script>
 import StudentGrid from "./components/student_grid.vue";
-import {  } from "goda";
+import { mapState } from "godam-vue";
 
 export default {
   name: "app",
   components: {
-    StudentGrid
+    StudentGrid,
   },
-  async beforeCreate() {
-    try {
-      const isDbCreated = await initJsStore();
-      if (isDbCreated) {
-        console.log("db created");
-        // prefill database
-      } else {
-        console.log("db opened");
-      }
-    } catch (ex) {
-      console.error(ex);
-      alert(ex.message);
-      Global.isIndexedDbSupported = false;
-    }
-  },
-  mounted() {
-    this.refreshStudent();
+  mounted() {},
+  computed: {
+    ...mapState(["students", "name"]),
+    // name() {
+    //   const state = this.$store.__state__;
+    //   debugger;
+    //   return state.name;
+    // },
   },
   data() {
+    window["comp"] = this;
     return {
-      students: []
+      // students: []
     };
   },
   methods: {
-    async refreshStudent() {
-      this.students = await new StudentService().getStudents();
-    },
     addStudent(student) {
-      this.students.push(student);
-    }
-  }
+      window["student"] = student;
+      const studentsAdded = this.$store.do("addStudent", student);
+    },
+  },
 };
 </script>
 

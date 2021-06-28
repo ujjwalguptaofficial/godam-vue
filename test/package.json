@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "install:lib":"npm i ../godam-vue-1.0.0.tgz --no-save"
+    "install:lib": "npm i ../godam-vue-1.0.0.tgz --no-save"
   },
   "dependencies": {
     "core-js": "^2.6.5",

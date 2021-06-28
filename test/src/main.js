@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue';
-import Store from "./store/index";
+import store from './store/index';
+import GodamPlugin from "godam-vue";
 
 Vue.config.productionTip = false
+window['GodamPlugin'] = GodamPlugin;
+Vue.use(GodamPlugin, store);
 
 new Vue({
   render: h => h(App),
-  store: Store
+  store: store
 }).$mount('#app')
