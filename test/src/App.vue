@@ -2,6 +2,7 @@
   <div id="app">
     {{ name }}
     <img alt="Vue logo" src="./assets/logo.png" />
+    <p>Students Length: {{ studentsLength}}</p>
     <div v-for="student in students" :key="student.id">
       {{ student.name }}
     </div>
@@ -11,7 +12,7 @@
 
 <script>
 import StudentGrid from "./components/student_grid.vue";
-import { mapState } from "godam-vue";
+import { mapState, mapExpression } from "godam-vue";
 
 export default {
   name: "app",
@@ -21,6 +22,7 @@ export default {
   mounted() {},
   computed: {
     ...mapState(["students", "name"]),
+    ...mapExpression(['studentsLength'])
     // name() {
     //   const state = this.$store.__state__;
     //   debugger;

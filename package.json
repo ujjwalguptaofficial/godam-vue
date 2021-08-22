@@ -24,7 +24,7 @@
   "devDependencies": {
     "copy-webpack-plugin": "^6.1.1",
     "cross-env": "^7.0.3",
-    "godam": "^0.2.0",
+    "godam": "^0.4.0",
     "ts-loader": "^7.0.4",
     "typescript": "^4.3.4",
     "vue": "^2.6.14",

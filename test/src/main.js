@@ -9,5 +9,5 @@ Vue.use(GodamPlugin, store);
 
 new Vue({
   render: h => h(App),
-  store: store
+  // store: store
 }).$mount('#app')

@@ -30,9 +30,15 @@ export class RootTask extends Tasks {
     }
 }
 
+export class RootExpression extends Expressions {
+    studentsLength() {
+        return this.get('students').length;
+    }
+}
+
 export default new Godam({
     state: State,
     mutations: RootMutation,
     tasks: RootTask,
-    track: false
+    expressions: RootExpression
 });

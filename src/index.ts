@@ -1,7 +1,7 @@
 import { Room, Godam } from "godam";
 
 export * from "./type";
-export const mapState = (states: string[], room: string) => {
+export const mapState = (states: string[], room?: string) => {
     var obj = {};
     states.forEach(state => {
         if (room) {
@@ -28,7 +28,7 @@ export const mapState = (states: string[], room: string) => {
     return obj;
 }
 
-export const mapExpression = (expressions: string[], room: string) => {
+export const mapExpression = (expressions: string[], room?: string) => {
     var obj = {};
     expressions.forEach(state => {
         if (room) {
