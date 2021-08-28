@@ -1,16 +1,28 @@
-import { Godam, Mutation, Expression, Task } from "godam";
+import { Godam, Mutation, Expression, Task, Computed } from "godam";
 
 export class State {
-    appName = "Vue Example for Godam"
+    firstName = "ujjwal"
+    lastName = "gupta"
 }
 
 export class RootMutation extends Mutation<State> {
-    name(value) {
-        this.state.appName = value;
+    firstName(value) {
+        this.state.firstName = value;
+    }
+    lastName(value) {
+        this.state.lastName = value;
+    }
+}
+export class RootExpression extends Expression<State> {
+
+    @Computed('firstName', 'lastName')
+    get fullName() {
+        return this.get('firstName') + ' ' + this.get('lastName');
     }
 }
 
 export const store = new Godam<State, RootMutation>({
     state: State,
-    mutations: RootMutation
+    mutations: RootMutation,
+    expressions: RootExpression
 });
