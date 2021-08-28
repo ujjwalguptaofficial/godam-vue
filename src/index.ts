@@ -69,6 +69,33 @@ export const mapExpression = (expressions: string[] | {}, room?: string) => {
     return obj;
 }
 
+export const mapTask = (tasks: string[] | {}, room?: string) => {
+    var obj = {};
+    const createTask = (mappedKey, expression) => {
+        if (room) {
+            obj[mappedKey] = function (...payload) {
+                return this.$store.do(`${expression}@${room}`, ...payload);
+            };
+        }
+        else {
+            obj[mappedKey] = function (...payload) {
+                return this.$store.do(expression, ...payload);
+            }
+        }
+    }
+    if (Array.isArray(tasks)) {
+        tasks.forEach(state => {
+            createTask(state, state);
+        });
+    }
+    else {
+        for (const key in tasks) {
+            createTask(key, tasks[key]);
+        }
+    }
+    return obj;
+}
+
 let _vue;
 function initRoom(this: Godam) {
     this['track'] = false;

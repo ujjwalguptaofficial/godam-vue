@@ -12,7 +12,7 @@
 
 <script>
 import StudentGrid from "./components/student_grid.vue";
-import { mapState, mapExpression } from "godam-vue";
+import { mapState, mapTask, mapExpression } from "godam-vue";
 
 export default {
   name: "app",
@@ -36,9 +36,10 @@ export default {
     };
   },
   methods: {
+    ...mapTask({ save: "addStudent" }),
     addStudent(student) {
       window["student"] = student;
-      const studentsAdded = this.$store.do("addStudent", student);
+      const studentsAdded = this.save(student);
     },
   },
 };

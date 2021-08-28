@@ -1,6 +1,6 @@
 {
   "name": "godam-vue",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Godam plugin for vue framework.",
   "main": "dist/lib.commonjs2.js",
   "types": "dist/ts/src/index.d.ts",
