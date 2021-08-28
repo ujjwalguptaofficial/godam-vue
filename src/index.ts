@@ -96,6 +96,33 @@ export const mapTask = (tasks: string[] | {}, room?: string) => {
     return obj;
 }
 
+export const mapMutation = (mutations: string[] | {}, room?: string) => {
+    var obj = {};
+    const createMutation = (mappedKey, mutation) => {
+        if (room) {
+            obj[mappedKey] = function (...payload) {
+                this.$store.set(`${mutation}@${room}`, ...payload);
+            };
+        }
+        else {
+            obj[mappedKey] = function (...payload) {
+                this.$store.set(mutation, ...payload);
+            }
+        }
+    }
+    if (Array.isArray(mutations)) {
+        mutations.forEach(state => {
+            createMutation(state, state);
+        });
+    }
+    else {
+        for (const key in mutations) {
+            createMutation(key, mutations[key]);
+        }
+    }
+    return obj;
+}
+
 let _vue;
 function initRoom(this: Godam) {
     this['track'] = false;
