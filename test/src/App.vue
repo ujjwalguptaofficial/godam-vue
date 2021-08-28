@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    {{ name }}
+    {{ name }}, expression {{ nameLength }}
     <img alt="Vue logo" src="./assets/logo.png" />
-    <p>Students Length: {{ studentsLength}}</p>
+    <p>Students Length: {{ studentsLength }}</p>
     <div v-for="student in students" :key="student.id">
       {{ student.name }}
     </div>
@@ -21,8 +21,8 @@ export default {
   },
   mounted() {},
   computed: {
+    ...mapExpression(["studentsLength", "nameLength"]),
     ...mapState(["students", "name"]),
-    ...mapExpression(['studentsLength'])
     // name() {
     //   const state = this.$store.__state__;
     //   debugger;

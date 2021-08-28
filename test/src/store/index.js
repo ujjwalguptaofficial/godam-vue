@@ -1,4 +1,4 @@
-import { Godam, Mutations, Expressions, Tasks } from "godam";
+import { Godam, Mutation, Expression, Task } from "godam";
 
 export class State {
     students = [];
@@ -6,7 +6,7 @@ export class State {
     name = "ujjwal"
 }
 
-export class RootMutation extends Mutations {
+export class RootMutation extends Mutation {
     students(value) {
         this.state.students.push(value);
     }
@@ -20,7 +20,7 @@ export class RootMutation extends Mutations {
     }
 }
 
-export class RootTask extends Tasks {
+export class RootTask extends Task {
     addStudent(student) {
         let lastStudentId = this.get("lastStudentId");
         student.id = ++lastStudentId;
@@ -30,10 +30,20 @@ export class RootTask extends Tasks {
     }
 }
 
-export class RootExpression extends Expressions {
-    studentsLength() {
+export class RootExpression extends Expression {
+    constructor() {
+        super();
+        this.markComputed(['students'], 'studentsLength');
+        this.markComputed(['name'], 'nameLength');
+    }
+    get studentsLength() {
         return this.get('students').length;
     }
+
+    get nameLength() {
+        return this.get('name').length;
+    }
+
 }
 
 export default new Godam({

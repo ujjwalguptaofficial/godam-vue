@@ -1,11 +1,11 @@
-import { Room, Godam } from "godam";
+import { Room, Godam, Observer } from "godam";
 
 export * from "./type";
-export const mapState = (states: string[], room?: string) => {
+export const mapState = (states: string[] | {}, room?: string) => {
     var obj = {};
-    states.forEach(state => {
+    const createState = (mappedState, state) => {
         if (room) {
-            obj[state] = {
+            obj[mappedState] = {
                 get() {
                     return this.$store.get(`${state}@${room}`);
                 },
@@ -15,7 +15,7 @@ export const mapState = (states: string[], room?: string) => {
             }
         }
         else {
-            obj[state] = {
+            obj[mappedState] = {
                 get() {
                     return this.$store.get(state);
                 },
@@ -24,50 +24,59 @@ export const mapState = (states: string[], room?: string) => {
                 }
             }
         }
-    });
+    }
+    if (Array.isArray(states)) {
+        states.forEach(state => {
+            createState(state, state);
+        });
+    }
+    else {
+        for (const key in states) {
+            createState(key, states[key]);
+        }
+    }
     return obj;
 }
 
-export const mapExpression = (expressions: string[], room?: string) => {
+export const mapExpression = (expressions: string[] | {}, room?: string) => {
     var obj = {};
-    expressions.forEach(state => {
+    const createExpression = (mappedKey, expression) => {
         if (room) {
-            obj[state] = function () {
-                return this.$store.eval(`${state}@${room}`);
-            }
+            obj[mappedKey] = {
+                get() {
+                    return this.$store.eval(`${expression}@${room}`);
+                },
+            };
         }
         else {
-            obj[state] = function () {
-                return this.$store.eval(state);
+            obj[mappedKey] = {
+                get() {
+                    return this.$store.eval(expression);
+                }
             }
         }
-    });
+    }
+    if (Array.isArray(expressions)) {
+        expressions.forEach(state => {
+            createExpression(state, state);
+        });
+    }
+    else {
+        for (const key in expressions) {
+            createExpression(key, expressions[key]);
+        }
+    }
     return obj;
 }
 
 let _vue;
 function initRoom(this: Godam) {
     this['track'] = false;
-    this['__state__'] = new _vue({ data: this['__state__'] });
+    new _vue({ data: this['__state__'] });
     const expression = this['__expression__'];
     const computed = expression['__computed__'];
     if (computed) {
-        const computedExpression = {};
-        for (const key in computed) {
-            const data = computed[key];
-            data.args.forEach(arg => {
-                this.watch(arg, () => {
-                    expression[key] = data.fn.call(expression);
-                });
-            })
-            computedExpression[key] = data.fn.call(expression);
-        }
-        const vm = new _vue({ data: computedExpression });
-        for (const key in computedExpression) {
-            vm.$on(key, (newValue, oldValue) => {
-                this['__onChange__'].call(this, `expression.${key}`, newValue, oldValue);
-            })
-        }
+        new _vue({ data: this['__computed__'] });
     };
 
     for (const key in this.rooms) {

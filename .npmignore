@@ -2,3 +2,6 @@
 test
 node_modules
 src
+
+#definition
+!dist/ts/src

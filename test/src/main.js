@@ -6,7 +6,7 @@ import GodamPlugin from "godam-vue";
 Vue.config.productionTip = false
 window['GodamPlugin'] = GodamPlugin;
 Vue.use(GodamPlugin, store);
-
+window.store = store;
 new Vue({
   render: h => h(App),
   // store: store
