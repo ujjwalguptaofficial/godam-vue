@@ -33,8 +33,8 @@ export class RootTask extends Task {
 export class RootExpression extends Expression {
     constructor() {
         super();
-        this.markComputed(['students'], 'studentsLength');
-        this.markComputed(['name'], 'nameLength');
+        this.markComputed('studentsLength', 'students');
+        this.markComputed('nameLength', 'name');
     }
     get studentsLength() {
         return this.get('students').length;
@@ -48,7 +48,7 @@ export class RootExpression extends Expression {
 
 export default new Godam({
     state: State,
-    mutations: RootMutation,
-    tasks: RootTask,
-    expressions: RootExpression
+    mutation: RootMutation,
+    task: RootTask,
+    expression: RootExpression
 });

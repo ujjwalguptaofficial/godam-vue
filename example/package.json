@@ -47,6 +47,6 @@
   },
   "dependencies": {
     "flexstyle": "^1.0.3",
-    "godam-vue": "^1.0.6"
+    "godam-vue": "^1.0.7"
   }
 }

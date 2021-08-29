@@ -1,12 +1,13 @@
 {
   "name": "godam-vue",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Godam plugin for vue framework.",
   "main": "dist/lib.commonjs2.js",
   "types": "dist/ts/src/index.d.ts",
   "scripts": {
     "test": "npm pack && cd test && npm run install:test",
     "webpack": "webpack --config webpack.config.js",
+    "build:pack": "npm run build:dev && npm pack",
     "build:dev": "cross-env NODE_ENV=development npm run webpack && npm run test",
     "build:prod": "cross-env NODE_ENV=production npm run webpack && npm run test",
     "deploy": "npm run build:dev && npm run build:prod"
@@ -31,6 +32,6 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "godam": "^0.7.1"
+    "godam": "^1.0.0"
   }
 }

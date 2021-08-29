@@ -23,6 +23,6 @@ export class RootExpression extends Expression<State> {
 
 export const store = new Godam<State, RootMutation>({
     state: State,
-    mutations: RootMutation,
-    expressions: RootExpression
+    mutation: RootMutation,
+    expression: RootExpression
 });

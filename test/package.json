@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "un:lib": "npm un godam-vue",
-    "install:lib": "npm i ../godam-vue-1.0.4.tgz --no-save",
+    "install:lib": "npm i ../godam-vue-1.0.7.tgz --no-save",
     "install:test": ""
   },
   "dependencies": {
