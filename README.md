@@ -27,7 +27,7 @@ export class RootMutation extends Mutation {
 
 export const store = new Godam({
     state: State,
-    mutations: RootMutation
+    mutation: RootMutation
 });
 ```
 
@@ -50,7 +50,6 @@ now `store` is mounted on `$store` in component.
 </template>
 
 <script>
-import StudentGrid from "./components/student_grid.vue";
 import { mapState, mapTask, mapExpression } from "godam-vue";
 
 export default {  
